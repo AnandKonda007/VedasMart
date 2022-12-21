@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,10 +48,13 @@ public class Sign_in extends AppCompatActivity {
     Button sign_in_sign_up;
     //string for storing our verification ID
     private String verificationId;
+    //
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog = new ProgressDialog(Sign_in.this);
         setContentView(R.layout.activity_sign_in);
         smsPermissionActions();
         auth = FirebaseAuth.getInstance();
@@ -111,6 +115,7 @@ public class Sign_in extends AppCompatActivity {
                     Toast.makeText(Sign_in.this, "Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
 
                 } else {
+                    progressDialog.show();
                     //if the text field is not empty we are calling our send OTP method for gettig OTP from Firebase.
                     String phone = "+91" + phonenumber.getText().toString();
                     sendVerificationCode(phone);
@@ -170,7 +175,9 @@ public class Sign_in extends AppCompatActivity {
 
         //below method is used when OTP is sent from Firebase
         @Override
+
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            progressDialog.dismiss();
             super.onCodeSent(s, forceResendingToken);
             //when we recieve the OTP it contains a unique id wich we are storing in our string which we have already created.
             verificationId = s;
@@ -179,6 +186,7 @@ public class Sign_in extends AppCompatActivity {
         //this method is called when user recieve OTP from Firebase.
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+
             //below line is used for getting OTP code which is sent in phone auth credentials.
             final String code = phoneAuthCredential.getSmsCode();
             //checking if the code is null or not.
@@ -201,6 +209,7 @@ public class Sign_in extends AppCompatActivity {
     };
 
     private void verifyCode(String code) {
+
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         signInWithCredential(credential);
     }
