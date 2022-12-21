@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "998337818815",
+    "firebase_url": "https://vedas-mart-cb0d7-default-rtdb.firebaseio.com",
+    "project_id": "vedas-mart-cb0d7",
+    "storage_bucket": "vedas-mart-cb0d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998337818815:android:a39b5ab19ab05dc6ff160a",
+        "android_client_info": {
+          "package_name": "com.example.vedasmart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998337818815-hut6o0en4bmi33oq7kcf0dreuvpdufjt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vedasmart",
+            "certificate_hash": "8f2ff3bcbbed4adc44f1d71ba89cebbd848bf058"
+          }
+        },
+        {
+          "client_id": "998337818815-796foqokog6m2chaoaerfn8k26jgjlgd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASOoYo50LByl77f_ioOOBehw4xlsShvXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998337818815-796foqokog6m2chaoaerfn8k26jgjlgd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

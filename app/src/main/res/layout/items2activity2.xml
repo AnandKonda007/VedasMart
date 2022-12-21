@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/imageActView2"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/LAct1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="35dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingRight="7dp"
+                    android:text="₹"
+                    android:textColor="#F14C22"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/textAct1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="text"
+                    android:textColor="#F14C22"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/LAct2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/LAct1"
+                app:layout_constraintStart_toStartOf="@+id/LAct1"
+                app:layout_constraintTop_toBottomOf="@+id/LAct1">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:paddingRight="7dp"
+                    android:text="MRP ₹"
+                    android:textColor="#BFBFBF" />
+
+
+                <TextView
+                    android:id="@+id/textAct2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="text"
+                    android:textColor="#BFBFBF" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LAct3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/LAct2"
+                app:layout_constraintStart_toStartOf="@+id/LAct2"
+                app:layout_constraintTop_toBottomOf="@+id/LAct2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:paddingRight="7dp"
+                    android:text="save ₹"
+                    android:textColor="#F14C22" />
+
+                <TextView
+                    android:id="@+id/textAct3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text=""
+                    android:textColor="#F14C22" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textAct4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="text"
+                android:textColor="#070707"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageActView2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.137" />
+
+
+            <TextView
+                android:id="@+id/textActQut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="text"
+                android:textColor="#070707"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="@+id/textAct4"
+                app:layout_constraintStart_toStartOf="@+id/textAct4"
+                app:layout_constraintTop_toBottomOf="@+id/textAct4" />
+
+            <LinearLayout
+                android:id="@+id/layoutAct1"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/LAct1"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="@+id/LAct1"
+                app:layout_constraintTop_toBottomOf="@+id/LAct3">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"/>
+                    <!--android:src="@drawable/ic_baseline_remove_circle_24"--> />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingTop="2dp"
+                    android:text="Add"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"/>
+                    <!--android:src="@drawable/ic_baseline_add_circle_24"--> />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
