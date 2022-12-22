@@ -3,6 +3,21 @@ package com.example.vedasmart.ServerResponseModels;
 import java.util.ArrayList;
 
 public class Info {
+    String _id;
+    String ProductID;
+    String subCategoryid;
+    String Categoryid;
+    String ProductName;
+    String Brand;
+    String MRP_Price;
+    String VMART_Price;
+    String quantity;
+    String description;
+    String postDate;
+    String Product_Status;
+    String ProductImage;
+    String Netweight;
+
     public String get_id() {
         return _id;
     }
@@ -107,19 +122,11 @@ public class Info {
         ProductImage = productImage;
     }
 
-    String _id;
-    String ProductID;
-    String subCategoryid;
-    String Categoryid;
-    String ProductName;
-    String Brand;
-    String MRP_Price;
-    String VMART_Price;
-    String quantity;
-    String description;
-    String postDate;
-    String Product_Status;
-    String ProductImage;
-    ArrayList<String> Netweight;
+    public String getNetweight() {
+        return Netweight;
+    }
 
+    public void setNetweight(String netweight) {
+        Netweight = netweight;
+    }
 }

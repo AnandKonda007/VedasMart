@@ -16,6 +16,7 @@ import com.example.vedasmart.R;
 import com.example.vedasmart.ServerResponseModels.DailyDeals;
 
 import java.util.ArrayList;
+
 public class categories2Adapter extends RecyclerView.Adapter<categories2Adapter.categories2ViewHolder> {
     Context context;
     ArrayList<DailyDeals> dailyDeals;
@@ -40,11 +41,22 @@ public class categories2Adapter extends RecyclerView.Adapter<categories2Adapter.
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_foreground).into(holder.image);
         holder.mrp.setText(dailyDeals.get(position).getMRP_Price());
-        // holder.save.setText(dailyDeals.get(position).get());
+        holder.save.setText(save(dailyDeals.get(position).getMRP_Price(),dailyDeals.get(position).getVMART_Price()));
         holder.price.setText(dailyDeals.get(position).getVMART_Price());
         holder.productname.setText(dailyDeals.get(position).getProductName());
 
     }
+
+    public String save(String mrp_price, String vmart_price) {
+        int mrp = Integer.parseInt(mrp_price);
+        int vmartPrice = Integer.parseInt(vmart_price);
+        int save = mrp - vmartPrice;
+
+        return String.valueOf(save);
+
+
+    }
+
 
     @Override
     public int getItemCount() {

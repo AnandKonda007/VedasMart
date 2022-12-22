@@ -97,7 +97,7 @@ public class SubCatogeries extends AppCompatActivity implements Sub_category2_In
             jsonObject.put("type", categoryID);
             JsonParser jsonParser = new JsonParser();
             CheckUserObj = (JsonObject) jsonParser.parse(jsonObject.toString());
-             Log.e("checkBuyProject:", " " + CheckUserObj.toString());
+            Log.e("checkBuyProject:", " " + CheckUserObj.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -137,7 +137,7 @@ public class SubCatogeries extends AppCompatActivity implements Sub_category2_In
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(Controller.MessageEvent messageEvent) {
         if (messageEvent.body != null && messageEvent.msg.equals("Subcategories")) {
-             Log.e("response", "call" + messageEvent.body);
+            Log.e("response", "call" + messageEvent.body);
             try {
                 JSONObject jObj = new JSONObject(messageEvent.body);
             } catch (JSONException e) {
@@ -145,7 +145,7 @@ public class SubCatogeries extends AppCompatActivity implements Sub_category2_In
             }
             Gson gson = new Gson();
             DashBoardResponse dashBoardResponse = gson.fromJson(messageEvent.body, DashBoardResponse.class);
-              Log.e("DashBoardResponse", "call" + new Object().toString());
+            Log.e("DashBoardResponse", "call" + new Object().toString());
             if (dashBoardResponse.getResponse() == 3) {
                 subCategorys.clear();
                 subCategorys = dashBoardResponse.getCategoryInfo().get(0).getSubCategorys();

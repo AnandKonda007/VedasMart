@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -42,7 +41,6 @@ import com.example.vedasmart.ServerResponseModels.DailyDeals;
 import com.example.vedasmart.ServerResponseModels.DashBoardResponse;
 import com.example.vedasmart.ServerResponseModels.advertisements;
 import com.example.vedasmart.ServerResponseModels.banners;
-import com.example.vedasmart.ServerResponseModels.bestSellings;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -70,7 +68,7 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
     ArrayList<CategoryInfo> Products = new ArrayList<>();
     ArrayList<advertisements> Advertisements = new ArrayList<>();
     ArrayList<banners> Banners = new ArrayList<>();
-    ArrayList<bestSellings> BestSellings = new ArrayList<>();
+    ArrayList<com.example.vedasmart.ServerResponseModels.BestSellings> BestSellings = new ArrayList<>();
     ArrayList<DailyDeals> dailyDeals = new ArrayList<>();
     //Recyclerviews
     RecyclerView recyclerView, recyclerView2, recyclerView3;
@@ -407,6 +405,7 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
 
     private void
     getProducts() {
+
         JsonObject CheckUserObj = new JsonObject();
         JSONObject jsonObject = new JSONObject();
 

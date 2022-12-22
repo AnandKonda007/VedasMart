@@ -8,7 +8,7 @@ public class DashBoardResponse {
     private ArrayList<CategoryInfo> CategoryInfo;
     private ArrayList<DashBoardData> DashBoardData;
     private ArrayList<DailyDeals> DailyDeals;
-    private ArrayList<bestSellings> bestSellings;
+    private ArrayList<BestSellings> bestSellings;
 
     public int getResponse() {
         return response;
@@ -50,11 +50,11 @@ public class DashBoardResponse {
         DailyDeals = dailyDeals;
     }
 
-    public ArrayList<com.example.vedasmart.ServerResponseModels.bestSellings> getBestSellings() {
+    public ArrayList<BestSellings> getBestSellings() {
         return bestSellings;
     }
 
-    public void setBestSellings(ArrayList<com.example.vedasmart.ServerResponseModels.bestSellings> bestSellings) {
+    public void setBestSellings(ArrayList<BestSellings> bestSellings) {
         this.bestSellings = bestSellings;
     }
 }

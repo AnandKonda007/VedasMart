@@ -130,6 +130,8 @@ public class Sign_in extends AppCompatActivity {
                     //if the OTP text field is empty display a message to user to enter OTP
                     Toast.makeText(Sign_in.this, "Please enter required fields", Toast.LENGTH_SHORT).show();
                 } else {
+                    progressDialog.show();
+
                     //if OTP field is not empty calling method to verify the OTP.
                     verifyCode(otp.getText().toString());
                 }
@@ -145,13 +147,14 @@ public class Sign_in extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //if the code is correct and the task is succesful we are sending our user to new activity.
-
                             startActivity(new Intent(Sign_in.this, DashBoard.class));
                             finish();
 
                         } else {
                             //if the code is not correct then we are displaying an error message to the user.
-                            Toast.makeText(Sign_in.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(Sign_in.this, "please check Entered Otp", Toast.LENGTH_SHORT).show();
+
+                            //Toast.makeText(Sign_in.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -203,12 +206,16 @@ public class Sign_in extends AppCompatActivity {
         //thid method is called when firebase doesnot sends our OTP code due to any error or issue.
         @Override
         public void onVerificationFailed(FirebaseException e) {
+            progressDialog.dismiss();
+
             //displaying error message with firebase exception.
             Toast.makeText(Sign_in.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(Sign_in.this, "please check Entered Otp", Toast.LENGTH_SHORT).show();
         }
     };
 
     private void verifyCode(String code) {
+        progressDialog.dismiss();
 
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         signInWithCredential(credential);

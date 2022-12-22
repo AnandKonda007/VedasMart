@@ -1,6 +1,6 @@
 package com.example.vedasmart.ServerResponseModels;
 
-public class bestSellings {
+public class BestSellings {
     String ProductID;
     String subCategoryid;
     String Categoryid;
@@ -8,7 +8,7 @@ public class bestSellings {
     String Brand;
     String MRP_Price;
     String VMART_Price;
-    String quantity;
+    String customerQuantity;
     String description;
     String postDate;
     String banersID;
@@ -71,12 +71,12 @@ public class bestSellings {
         this.VMART_Price = VMART_Price;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public String getCustomerQuantity() {
+        return customerQuantity;
     }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
+    public void setCustomerQuantity(String customerQuantity) {
+        this.customerQuantity = customerQuantity;
     }
 
     public String getDescription() {
