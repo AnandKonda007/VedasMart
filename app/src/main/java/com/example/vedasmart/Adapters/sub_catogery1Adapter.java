@@ -30,7 +30,7 @@ public class sub_catogery1Adapter extends RecyclerView.Adapter<sub_catogery1Adap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.catogeries4, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.sub_category1, parent, false);
         return new sub_catogery1Adapter.ViewHolder(view);
     }
 

@@ -10,8 +10,11 @@ import androidx.core.app.ActivityCompat;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,10 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.vedasmart.DashBordServerResponseModels.Sign_in_Model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
@@ -34,6 +39,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.concurrent.TimeUnit;
 
@@ -59,6 +73,8 @@ public class Sign_in extends AppCompatActivity {
         smsPermissionActions();
         auth = FirebaseAuth.getInstance();
         actions();
+        Controller.getInstance().fillcontext(getApplicationContext());
+
 
     }
 
@@ -83,6 +99,57 @@ public class Sign_in extends AppCompatActivity {
 
                 }
             }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(Sign_in.this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(Sign_in.this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(Controller.MessageEvent messageEvent) {
+        progressDialog.dismiss();
+        Log.e("response", "call" + messageEvent.body);
+        if (messageEvent.body != null && messageEvent.msg.equals("LoginApi")) {
+            try {
+                JSONObject jObj = new JSONObject(messageEvent.body);
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+            }
+            Gson gson = new Gson();
+            Sign_in_Model sign_in_model = gson.fromJson(messageEvent.body, Sign_in_Model.class);
+            Log.e("Sigin_in_response", "call" + sign_in_model.getResponse());
+            if (sign_in_model.getResponse() == 3) {
+                ///token
+                if (stroreaccesstoken(sign_in_model.getJsontoken())) {
+
+                    startActivity(new Intent(getApplicationContext(), DashBoard.class));
+                    Toast.makeText(getApplicationContext(), sign_in_model.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), sign_in_model.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public boolean stroreaccesstoken(String token) {
+        SharedPreferences sharedPref = getSharedPreferences("tokenPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("token", token);
+        Log.e("token", "call" + token);
+
+        if (editor.commit()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -130,34 +197,64 @@ public class Sign_in extends AppCompatActivity {
                     //if the OTP text field is empty display a message to user to enter OTP
                     Toast.makeText(Sign_in.this, "Please enter required fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    progressDialog.show();
-
-                    //if OTP field is not empty calling method to verify the OTP.
-                    verifyCode(otp.getText().toString());
+                    if (Controller.getInstance().checkNetwork()) {
+                        // progressDialog.show();
+                        //if OTP field is not empty calling method to verify the OTP.
+                        verifyCode(otp.getText().toString());
+                        //  Sign_in_ApiParams();
+                    } else {
+                        Toast.makeText(Sign_in.this, "No internet connection.", Toast.LENGTH_LONG).show();
+                    }
                 }
+
             }
         });
     }
 
+
+    private void sign_in_ApiParams() {
+        String device_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.e("Android", "Device_id : " + device_id);
+
+
+        JsonObject CheckUserObj = new JsonObject();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("PhoneNumber", phonenumber.getText().toString());
+            jsonObject.put("otpNumber", otp.getText().toString());
+            jsonObject.put("deviceId", device_id);
+            jsonObject.put("tokenId", "5d3l9bhoFIWsaoZEx1buqnO4Z0s1");
+            jsonObject.put("deviceType", "Mobile");
+
+
+            JsonParser jsonParser = new JsonParser();
+            CheckUserObj = (JsonObject) jsonParser.parse(jsonObject.toString());
+            Log.e("checkBuyProject:", " " + CheckUserObj.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Controller.getInstance().ApiCallBackForPostMethods(Sign_in.this, "customer/login", "", CheckUserObj, "LoginApi");
+
+    }
+
     private void signInWithCredential(PhoneAuthCredential credential) {
         //inside this method we are checking if the code entered is correct or not.
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            //if the code is correct and the task is succesful we are sending our user to new activity.
-                            startActivity(new Intent(Sign_in.this, DashBoard.class));
-                            finish();
+        auth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    //if the code is correct and the task is succesful we are sending our user to new activity.
+                    startActivity(new Intent(Sign_in.this, DashBoard.class));
+                    //finish();
+                    progressDialog.show();
+                    sign_in_ApiParams();
+                    Log.e("signInWithCredential", "call");
+                } else {
+                    Toast.makeText(Sign_in.this, "please check Entered Otp", Toast.LENGTH_SHORT).show();
 
-                        } else {
-                            //if the code is not correct then we are displaying an error message to the user.
-                            Toast.makeText(Sign_in.this, "please check Entered Otp", Toast.LENGTH_SHORT).show();
-
-                            //Toast.makeText(Sign_in.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                }
+            }
+        });
     }
 
     private void sendVerificationCode(String phone) {
@@ -182,6 +279,7 @@ public class Sign_in extends AppCompatActivity {
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             progressDialog.dismiss();
             super.onCodeSent(s, forceResendingToken);
+            Log.e("onCodeSent", "call");
             //when we recieve the OTP it contains a unique id wich we are storing in our string which we have already created.
             verificationId = s;
         }
@@ -189,15 +287,15 @@ public class Sign_in extends AppCompatActivity {
         //this method is called when user recieve OTP from Firebase.
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-
             //below line is used for getting OTP code which is sent in phone auth credentials.
             final String code = phoneAuthCredential.getSmsCode();
             //checking if the code is null or not.
             if (code != null) {
+                Log.e("onVerificationCompleted", "call");
                 //if the code is not null then we are setting that code to our OTP edittext field.
                 otp.setText(code);
                 //after setting this code to OTP edittext field we are calling our verifycode method.
-                verifyCode(code);
+                //  verifyCode(code);
 
             }
 
@@ -207,7 +305,7 @@ public class Sign_in extends AppCompatActivity {
         @Override
         public void onVerificationFailed(FirebaseException e) {
             progressDialog.dismiss();
-
+            Log.e("onVerificationFailed", "call");
             //displaying error message with firebase exception.
             Toast.makeText(Sign_in.this, e.getMessage(), Toast.LENGTH_LONG).show();
             Toast.makeText(Sign_in.this, "please check Entered Otp", Toast.LENGTH_SHORT).show();
@@ -216,7 +314,6 @@ public class Sign_in extends AppCompatActivity {
 
     private void verifyCode(String code) {
         progressDialog.dismiss();
-
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         signInWithCredential(credential);
     }

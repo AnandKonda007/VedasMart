@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
 
 
+
     // Image slider Dependencies
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
 
@@ -63,5 +64,4 @@ dependencies {
     //Swipe down to refresh Dependencies
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-
 }

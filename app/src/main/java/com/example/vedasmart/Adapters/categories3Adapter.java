@@ -20,12 +20,12 @@ import java.util.ArrayList;
 
 public class categories3Adapter extends RecyclerView.Adapter<categories3Adapter.categories3ViewHolder> {
     Context context;
-    ArrayList<com.example.vedasmart.DashBordServerResponseModels.BestSellings> bestSellingsArrayList;
+    ArrayList<BestSellings> bestSellingsArrayList;
 
 
-    public categories3Adapter(Context context, ArrayList<com.example.vedasmart.DashBordServerResponseModels.BestSellings> bestSellings) {
+    public categories3Adapter(Context context, ArrayList<BestSellings> bestSellingsArrayList) {
         this.context = context;
-        this.bestSellingsArrayList = bestSellings;
+        this.bestSellingsArrayList = bestSellingsArrayList;
     }
 
     @NonNull
@@ -100,7 +100,7 @@ public class categories3Adapter extends RecyclerView.Adapter<categories3Adapter.
 
         public categories3ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image2);
+            image = itemView.findViewById(R.id.product_image2);
             price = itemView.findViewById(R.id.Price2);
             mrp = itemView.findViewById(R.id.MRP2);
             save = itemView.findViewById(R.id.Save2);
@@ -108,7 +108,6 @@ public class categories3Adapter extends RecyclerView.Adapter<categories3Adapter.
             quantity = itemView.findViewById(R.id.quantity2);
             decrement = itemView.findViewById(R.id.decrement2);
             increment = itemView.findViewById(R.id.increment2);
-
 
         }
     }

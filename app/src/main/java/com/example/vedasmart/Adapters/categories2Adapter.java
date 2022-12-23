@@ -41,7 +41,7 @@ public class categories2Adapter extends RecyclerView.Adapter<categories2Adapter.
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_foreground).into(holder.image);
         holder.mrp.setText(dailyDeals.get(position).getMRP_Price());
-        holder.save.setText(save(dailyDeals.get(position).getMRP_Price(),dailyDeals.get(position).getVMART_Price()));
+        holder.save.setText(save(dailyDeals.get(position).getMRP_Price(), dailyDeals.get(position).getVMART_Price()));
         holder.price.setText(dailyDeals.get(position).getVMART_Price());
         holder.productname.setText(dailyDeals.get(position).getProductName());
 
@@ -65,17 +65,14 @@ public class categories2Adapter extends RecyclerView.Adapter<categories2Adapter.
     public class categories2ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView price, mrp, save, productname;
-        ConstraintLayout layout;
 
         public categories2ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image);
+            image = itemView.findViewById(R.id.product_image);
             price = itemView.findViewById(R.id.Price);
             mrp = itemView.findViewById(R.id.MRP);
             save = itemView.findViewById(R.id.Save);
             productname = itemView.findViewById(R.id.Product_Name);
-            // layout=itemView.findViewById(R.id.constraint_layout);
-
 
         }
     }
