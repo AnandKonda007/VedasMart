@@ -1,8 +1,6 @@
-package com.example.vedasmart.ServerResponseModels;
+package com.example.vedasmart.DashBordServerResponseModels;
 
-import java.util.ArrayList;
-
-public class Info {
+public class DailyDeals {
     String _id;
     String ProductID;
     String subCategoryid;

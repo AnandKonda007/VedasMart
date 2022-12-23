@@ -1,7 +1,6 @@
-package com.example.vedasmart.ServerResponseModels;
+package com.example.vedasmart.DashBordServerResponseModels;
 
-public class DailyDeals {
-    String _id;
+public class BestSellings {
     String ProductID;
     String subCategoryid;
     String Categoryid;
@@ -9,20 +8,12 @@ public class DailyDeals {
     String Brand;
     String MRP_Price;
     String VMART_Price;
-    String quantity;
+    String customerQuantity;
     String description;
     String postDate;
-    String Product_Status;
+    String banersID;
     String ProductImage;
-    String Netweight;
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
+    String Product_Status;
 
     public String getProductID() {
         return ProductID;
@@ -80,12 +71,12 @@ public class DailyDeals {
         this.VMART_Price = VMART_Price;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public String getCustomerQuantity() {
+        return customerQuantity;
     }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
+    public void setCustomerQuantity(String customerQuantity) {
+        this.customerQuantity = customerQuantity;
     }
 
     public String getDescription() {
@@ -104,12 +95,12 @@ public class DailyDeals {
         this.postDate = postDate;
     }
 
-    public String getProduct_Status() {
-        return Product_Status;
+    public String getBanersID() {
+        return banersID;
     }
 
-    public void setProduct_Status(String product_Status) {
-        Product_Status = product_Status;
+    public void setBanersID(String banersID) {
+        this.banersID = banersID;
     }
 
     public String getProductImage() {
@@ -120,11 +111,11 @@ public class DailyDeals {
         ProductImage = productImage;
     }
 
-    public String getNetweight() {
-        return Netweight;
+    public String getProduct_Status() {
+        return Product_Status;
     }
 
-    public void setNetweight(String netweight) {
-        Netweight = netweight;
+    public void setProduct_Status(String product_Status) {
+        Product_Status = product_Status;
     }
 }

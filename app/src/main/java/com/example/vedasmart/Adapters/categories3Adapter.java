@@ -14,16 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.vedasmart.R;
-import com.example.vedasmart.ServerResponseModels.BestSellings;
+import com.example.vedasmart.DashBordServerResponseModels.BestSellings;
 
 import java.util.ArrayList;
 
 public class categories3Adapter extends RecyclerView.Adapter<categories3Adapter.categories3ViewHolder> {
     Context context;
-    ArrayList<com.example.vedasmart.ServerResponseModels.BestSellings> bestSellingsArrayList;
+    ArrayList<com.example.vedasmart.DashBordServerResponseModels.BestSellings> bestSellingsArrayList;
 
 
-    public categories3Adapter(Context context, ArrayList<com.example.vedasmart.ServerResponseModels.BestSellings> bestSellings) {
+    public categories3Adapter(Context context, ArrayList<com.example.vedasmart.DashBordServerResponseModels.BestSellings> bestSellings) {
         this.context = context;
         this.bestSellingsArrayList = bestSellings;
     }

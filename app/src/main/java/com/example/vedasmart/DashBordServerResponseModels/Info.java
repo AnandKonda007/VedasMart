@@ -1,19 +1,29 @@
-package com.example.vedasmart.ServerResponseModels;
+package com.example.vedasmart.DashBordServerResponseModels;
 
-public class BestSellings {
+public class Info {
+    String _id;
     String ProductID;
     String subCategoryid;
     String Categoryid;
     String ProductName;
     String Brand;
-    String MRP_Price;
-    String VMART_Price;
-    String customerQuantity;
+    int MRP_Price;
+    int VMART_Price;
     String description;
     String postDate;
-    String banersID;
     String ProductImage;
-    String Product_Status;
+    Boolean Product_Status;
+    String customerQuantity;
+    String Netweight;
+    String stockquantity;
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
     public String getProductID() {
         return ProductID;
@@ -55,28 +65,20 @@ public class BestSellings {
         Brand = brand;
     }
 
-    public String getMRP_Price() {
+    public int getMRP_Price() {
         return MRP_Price;
     }
 
-    public void setMRP_Price(String MRP_Price) {
+    public void setMRP_Price(int MRP_Price) {
         this.MRP_Price = MRP_Price;
     }
 
-    public String getVMART_Price() {
+    public int getVMART_Price() {
         return VMART_Price;
     }
 
-    public void setVMART_Price(String VMART_Price) {
+    public void setVMART_Price(int VMART_Price) {
         this.VMART_Price = VMART_Price;
-    }
-
-    public String getCustomerQuantity() {
-        return customerQuantity;
-    }
-
-    public void setCustomerQuantity(String customerQuantity) {
-        this.customerQuantity = customerQuantity;
     }
 
     public String getDescription() {
@@ -95,14 +97,6 @@ public class BestSellings {
         this.postDate = postDate;
     }
 
-    public String getBanersID() {
-        return banersID;
-    }
-
-    public void setBanersID(String banersID) {
-        this.banersID = banersID;
-    }
-
     public String getProductImage() {
         return ProductImage;
     }
@@ -111,11 +105,35 @@ public class BestSellings {
         ProductImage = productImage;
     }
 
-    public String getProduct_Status() {
+    public Boolean getProduct_Status() {
         return Product_Status;
     }
 
-    public void setProduct_Status(String product_Status) {
+    public void setProduct_Status(Boolean product_Status) {
         Product_Status = product_Status;
+    }
+
+    public String getCustomerQuantity() {
+        return customerQuantity;
+    }
+
+    public void setCustomerQuantity(String customerQuantity) {
+        this.customerQuantity = customerQuantity;
+    }
+
+    public String getNetweight() {
+        return Netweight;
+    }
+
+    public void setNetweight(String netweight) {
+        Netweight = netweight;
+    }
+
+    public String getStockquantity() {
+        return stockquantity;
+    }
+
+    public void setStockquantity(String stockquantity) {
+        this.stockquantity = stockquantity;
     }
 }

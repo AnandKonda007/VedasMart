@@ -1,4 +1,4 @@
-package com.example.vedasmart.ServerResponseModels;
+package com.example.vedasmart.DashBordServerResponseModels;
 
 import java.util.ArrayList;
 
@@ -15,11 +15,11 @@ public class DashBoardData {
         PhoneNumber = phoneNumber;
     }
 
-    public ArrayList<com.example.vedasmart.ServerResponseModels.advertisements> getAdvertisements() {
+    public ArrayList<com.example.vedasmart.DashBordServerResponseModels.advertisements> getAdvertisements() {
         return advertisements;
     }
 
-    public void setAdvertisements(ArrayList<com.example.vedasmart.ServerResponseModels.advertisements> advertisements) {
+    public void setAdvertisements(ArrayList<com.example.vedasmart.DashBordServerResponseModels.advertisements> advertisements) {
         this.advertisements = advertisements;
     }
 

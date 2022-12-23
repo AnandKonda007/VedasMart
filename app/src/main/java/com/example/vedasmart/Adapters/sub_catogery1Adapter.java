@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.vedasmart.InterFace.Sub_category2_Interface;
 import com.example.vedasmart.R;
-import com.example.vedasmart.ServerResponseModels.SubCategorysModel;
+import com.example.vedasmart.DashBordServerResponseModels.SubCategorysModel;
 
 import java.util.ArrayList;
 

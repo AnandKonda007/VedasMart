@@ -1,4 +1,4 @@
-package com.example.vedasmart.ServerResponseModels;
+package com.example.vedasmart.DashBordServerResponseModels;
 
 public class SubCategorysModel {
     private String subCategoryID;

@@ -1,4 +1,4 @@
-package com.example.vedasmart.ServerResponseModels;
+package com.example.vedasmart.DashBordServerResponseModels;
 
 import java.util.ArrayList;
 
@@ -26,27 +26,27 @@ public class DashBoardResponse {
         this.message = message;
     }
 
-    public ArrayList<com.example.vedasmart.ServerResponseModels.CategoryInfo> getCategoryInfo() {
+    public ArrayList<com.example.vedasmart.DashBordServerResponseModels.CategoryInfo> getCategoryInfo() {
         return CategoryInfo;
     }
 
-    public void setCategoryInfo(ArrayList<com.example.vedasmart.ServerResponseModels.CategoryInfo> categoryInfo) {
+    public void setCategoryInfo(ArrayList<com.example.vedasmart.DashBordServerResponseModels.CategoryInfo> categoryInfo) {
         CategoryInfo = categoryInfo;
     }
 
-    public ArrayList<com.example.vedasmart.ServerResponseModels.DashBoardData> getDashBoardData() {
+    public ArrayList<com.example.vedasmart.DashBordServerResponseModels.DashBoardData> getDashBoardData() {
         return DashBoardData;
     }
 
-    public void setDashBoardData(ArrayList<com.example.vedasmart.ServerResponseModels.DashBoardData> dashBoardData) {
+    public void setDashBoardData(ArrayList<com.example.vedasmart.DashBordServerResponseModels.DashBoardData> dashBoardData) {
         DashBoardData = dashBoardData;
     }
 
-    public ArrayList<com.example.vedasmart.ServerResponseModels.DailyDeals> getDailyDeals() {
+    public ArrayList<com.example.vedasmart.DashBordServerResponseModels.DailyDeals> getDailyDeals() {
         return DailyDeals;
     }
 
-    public void setDailyDeals(ArrayList<com.example.vedasmart.ServerResponseModels.DailyDeals> dailyDeals) {
+    public void setDailyDeals(ArrayList<com.example.vedasmart.DashBordServerResponseModels.DailyDeals> dailyDeals) {
         DailyDeals = dailyDeals;
     }
 

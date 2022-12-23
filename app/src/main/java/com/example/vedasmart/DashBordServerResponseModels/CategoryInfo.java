@@ -1,4 +1,4 @@
-package com.example.vedasmart.ServerResponseModels;
+package com.example.vedasmart.DashBordServerResponseModels;
 
 import java.util.ArrayList;
 

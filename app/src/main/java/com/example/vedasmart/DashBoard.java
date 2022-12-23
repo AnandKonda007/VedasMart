@@ -36,11 +36,11 @@ import com.example.vedasmart.Adapters.categories1Adapter;
 import com.example.vedasmart.Adapters.categories2Adapter;
 import com.example.vedasmart.Adapters.categories3Adapter;
 import com.example.vedasmart.InterFace.Sub_category1_Interface;
-import com.example.vedasmart.ServerResponseModels.CategoryInfo;
-import com.example.vedasmart.ServerResponseModels.DailyDeals;
-import com.example.vedasmart.ServerResponseModels.DashBoardResponse;
-import com.example.vedasmart.ServerResponseModels.advertisements;
-import com.example.vedasmart.ServerResponseModels.banners;
+import com.example.vedasmart.DashBordServerResponseModels.CategoryInfo;
+import com.example.vedasmart.DashBordServerResponseModels.DailyDeals;
+import com.example.vedasmart.DashBordServerResponseModels.DashBoardResponse;
+import com.example.vedasmart.DashBordServerResponseModels.advertisements;
+import com.example.vedasmart.DashBordServerResponseModels.banners;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -68,7 +68,7 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
     ArrayList<CategoryInfo> Products = new ArrayList<>();
     ArrayList<advertisements> Advertisements = new ArrayList<>();
     ArrayList<banners> Banners = new ArrayList<>();
-    ArrayList<com.example.vedasmart.ServerResponseModels.BestSellings> BestSellings = new ArrayList<>();
+    ArrayList<com.example.vedasmart.DashBordServerResponseModels.BestSellings> BestSellings = new ArrayList<>();
     ArrayList<DailyDeals> dailyDeals = new ArrayList<>();
     //Recyclerviews
     RecyclerView recyclerView, recyclerView2, recyclerView3;

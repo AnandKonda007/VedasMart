@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.vedasmart.R;
-import com.example.vedasmart.ServerResponseModels.Info;
+import com.example.vedasmart.DashBordServerResponseModels.Info;
 
 import java.util.ArrayList;
 
@@ -38,10 +38,9 @@ public class sub_catogery2Adapter extends RecyclerView.Adapter<sub_catogery2Adap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        holder.text1.setText(infoArrayList.get(position).getVMART_Price());
-        holder.text2.setText(infoArrayList.get(position).getMRP_Price());
-        holder.text3.setText(infoArrayList.get(position).getQuantity());
+        holder.text1.setText(String.valueOf(infoArrayList.get(position).getVMART_Price()));
+        holder.text2.setText(String.valueOf(infoArrayList.get(position).getMRP_Price()));
+        holder.text3.setText(infoArrayList.get(position).getCustomerQuantity());
         holder.text4.setText(infoArrayList.get(position).getProductName());
         Glide.with(context).load("http://liveapi-vmart.softexer.com" + infoArrayList
                         .get(position).getProductImage())
@@ -49,6 +48,7 @@ public class sub_catogery2Adapter extends RecyclerView.Adapter<sub_catogery2Adap
                 .error(R.drawable.ic_launcher_foreground).into(holder.image3);
 
     }
+
 
     @Override
     public int getItemCount() {

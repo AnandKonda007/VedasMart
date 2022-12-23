@@ -1,4 +1,4 @@
-package com.example.vedasmart.ServerResponseModels;
+package com.example.vedasmart.DashBordServerResponseModels;
 
 import java.util.ArrayList;
 
@@ -24,11 +24,11 @@ public class Sub_Category_Inner_Products {
         this.message = message;
     }
 
-    public ArrayList<com.example.vedasmart.ServerResponseModels.Info> getInfo() {
+    public ArrayList<com.example.vedasmart.DashBordServerResponseModels.Info> getInfo() {
         return Info;
     }
 
-    public void setInfo(ArrayList<com.example.vedasmart.ServerResponseModels.Info> info) {
+    public void setInfo(ArrayList<com.example.vedasmart.DashBordServerResponseModels.Info> info) {
         Info = info;
     }
 }
