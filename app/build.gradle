@@ -45,7 +45,7 @@ dependencies {
     //Fire base Dependencies for login with phone number
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-auth'
-
+    implementation 'com.google.firebase:firebase-messaging:23.1.1'
 
 
     // Image slider Dependencies

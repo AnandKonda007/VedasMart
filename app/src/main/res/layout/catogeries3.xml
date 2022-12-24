@@ -147,7 +147,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout2"
-                android:layout_width="110dp"
+                android:layout_width="130dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="#1dbf5b"
@@ -158,7 +158,7 @@
 
                 <ImageButton
                     android:id="@+id/decrement2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#1dbf5b"
                     android:src="@drawable/decrement"
@@ -172,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Add"
+                    android:text="Add to cart"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/increment2"
@@ -181,7 +181,7 @@
 
                 <ImageButton
                     android:id="@+id/increment2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#1dbf5b"
                     android:src="@drawable/increment"

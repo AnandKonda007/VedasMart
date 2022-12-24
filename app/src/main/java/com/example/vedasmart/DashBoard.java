@@ -118,10 +118,18 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
             public void onClick(View v) {
                 String ButtonText = search.getText().toString();
                 if (ButtonText.equals("Search")) {
-                    search.setText("Clear");
+                    if(text.getText().toString().isEmpty()){
+                        Toast.makeText(DashBoard.this, "Please Enter Product Name", Toast.LENGTH_SHORT).show();
+
+
+                    }else{
+                        search.setText("Clear");
+                    }
+
                 } else {
                     if (ButtonText.equals("Clear")) {
                         search.setText("Search");
+                        text.setText("");
 
                     }
                 }
@@ -437,7 +445,6 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
         intent.putExtra("categoryID", CategoryID);
         startActivity(intent);
     }
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -445,7 +452,5 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
         } else {
             super.onBackPressed();
         }
-
-
     }
 }
