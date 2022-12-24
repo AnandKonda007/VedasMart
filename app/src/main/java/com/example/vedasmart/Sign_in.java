@@ -72,19 +72,6 @@ public class Sign_in extends AppCompatActivity {
 
     }
 
-    private void getToken() {
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.e("response", "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
-                        fcmToken = task.getResult();
-                        Log.e("response", "Fetching FCM registration token successfull   " + fcmToken, task.getException());
-                    }
-                });
-    }
 
     private void smsPermissionActions() {
         if (checkPermission()) {
@@ -159,6 +146,20 @@ public class Sign_in extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    private void getToken() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("response", "Fetching FCM registration token failed", task.getException());
+                    return;
+                }
+                fcmToken = task.getResult();
+                Log.e("response", "Fetching FCM registration token successfull   " + fcmToken, task.getException());
+            }
+        });
     }
 
     public boolean checkPermission() {
@@ -264,13 +265,7 @@ public class Sign_in extends AppCompatActivity {
     }
 
     private void sendVerificationCode(String phone) {
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(auth)
-                        .setPhoneNumber(phone)
-                        .setTimeout(60L, TimeUnit.SECONDS)
-                        .setActivity(this)
-                        .setCallbacks(mCallBack)
-                        .build();
+        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth).setPhoneNumber(phone).setTimeout(60L, TimeUnit.SECONDS).setActivity(this).setCallbacks(mCallBack).build();
         PhoneAuthProvider.verifyPhoneNumber(options);
 
     }
