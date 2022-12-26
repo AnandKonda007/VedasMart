@@ -290,7 +290,6 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
 
                 } else if (id == R.id.terms_and_conditions) {
                     progressDialog.show();
-
                     startActivity(new Intent(DashBoard.this, Terms_and_conditions.class));
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
