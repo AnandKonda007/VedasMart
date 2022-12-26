@@ -14,12 +14,15 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
@@ -41,6 +44,7 @@ import com.example.vedasmart.DashBordServerResponseModels.DailyDeals;
 import com.example.vedasmart.DashBordServerResponseModels.DashBoardResponse;
 import com.example.vedasmart.DashBordServerResponseModels.advertisements;
 import com.example.vedasmart.DashBordServerResponseModels.banners;
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -92,6 +96,9 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
     Button search;
     String token;
 
+    NavigationView navigationView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,11 +125,11 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
             public void onClick(View v) {
                 String ButtonText = search.getText().toString();
                 if (ButtonText.equals("Search")) {
-                    if(text.getText().toString().isEmpty()){
+                    if (text.getText().toString().isEmpty()) {
                         Toast.makeText(DashBoard.this, "Please Enter Product Name", Toast.LENGTH_SHORT).show();
 
 
-                    }else{
+                    } else {
                         search.setText("Clear");
                     }
 
@@ -264,15 +271,35 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
     private void sidemenuActions() {
         sidemenu = findViewById(R.id.sidemenu);
         drawerLayout = findViewById(R.id.drawerLayout);
-
         sidemenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 drawerLayout.openDrawer(GravityCompat.START);
             }
+
         });
+        navigationView = findViewById(R.id.sidebar);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.home1) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    startActivity(new Intent(DashBoard.this, DashBoard.class));
+                    finish();
+
+                } else if (id == R.id.terms_and_conditions) {
+                    progressDialog.show();
+
+                    startActivity(new Intent(DashBoard.this, Terms_and_conditions.class));
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+
     }
+
 
     private void checkNetwork() {
         progressDialog.show();
@@ -445,6 +472,7 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
         intent.putExtra("categoryID", CategoryID);
         startActivity(intent);
     }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {

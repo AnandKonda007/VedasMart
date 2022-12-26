@@ -64,4 +64,8 @@ dependencies {
     //Swipe down to refresh Dependencies
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    //dots progress bar dependency
+    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
+
 }
