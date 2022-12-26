@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +43,10 @@ import com.example.vedasmart.DashBordServerResponseModels.DailyDeals;
 import com.example.vedasmart.DashBordServerResponseModels.DashBoardResponse;
 import com.example.vedasmart.DashBordServerResponseModels.advertisements;
 import com.example.vedasmart.DashBordServerResponseModels.banners;
+import com.example.vedasmart.SideNavigationActivities.Faq;
+import com.example.vedasmart.SideNavigationActivities.Privacy_policy;
+import com.example.vedasmart.SideNavigationActivities.Return_refund;
+import com.example.vedasmart.SideNavigationActivities.Terms_and_conditions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -97,7 +100,6 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
     String token;
 
     NavigationView navigationView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -283,14 +285,28 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.home1) {
+                if (id == R.id.home) {
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    startActivity(new Intent(DashBoard.this, DashBoard.class));
-                    finish();
-
                 } else if (id == R.id.terms_and_conditions) {
                     progressDialog.show();
                     startActivity(new Intent(DashBoard.this, Terms_and_conditions.class));
+                    progressDialog.dismiss();
+
+                } else if (id == R.id.privacy_policy) {
+                    progressDialog.show();
+                    startActivity(new Intent(DashBoard.this, Privacy_policy.class));
+                    progressDialog.dismiss();
+
+                } else if (id == R.id.refund_returns) {
+                    progressDialog.show();
+                    startActivity(new Intent(DashBoard.this, Return_refund.class));
+                    progressDialog.dismiss();
+
+                } else if (id == R.id.faq) {
+                    progressDialog.show();
+                    startActivity(new Intent(DashBoard.this, Faq.class));
+                    progressDialog.dismiss();
+
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
@@ -437,8 +453,7 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
         }
     }
 
-    private void
-    getProducts() {
+    private void getProducts() {
 
         JsonObject CheckUserObj = new JsonObject();
         JSONObject jsonObject = new JSONObject();
@@ -477,6 +492,7 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
+            finishAffinity();
             super.onBackPressed();
         }
     }
