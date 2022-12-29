@@ -36,8 +36,8 @@
                     android:id="@+id/search"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginEnd="99dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="99dp"
                     android:background="@drawable/button_bg"
                     android:hint="Search product.."
                     android:inputType="textVisiblePassword"
@@ -53,7 +53,7 @@
                     android:src="@drawable/search"
                     app:layout_constraintBottom_toBottomOf="@+id/mic_icon"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/mic_icon"/>
+                    app:layout_constraintTop_toTopOf="@+id/mic_icon" />
 
                 <ImageView
                     android:id="@+id/mic_icon"
@@ -184,7 +184,22 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/header"
-        app:menu="@menu/side_navigation_items" />
+        app:headerLayout="@layout/header_logout">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/side_navigation_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </ScrollView>
+    </com.google.android.material.navigation.NavigationView>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
 

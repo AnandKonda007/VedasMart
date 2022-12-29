@@ -72,8 +72,8 @@ public class Terms_and_conditions extends AppCompatActivity {
                     progressDialog.show();
                     startActivity(new Intent(Terms_and_conditions.this, Faq.class));
                     progressDialog.dismiss();
-
                 }
+
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }

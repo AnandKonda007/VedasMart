@@ -46,7 +46,7 @@ public class Faq extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.home1) {
+                if (id == R.id.home) {
                     progressDialog.show();
                     startActivity(new Intent(Faq.this, DashBoard.class));
                     progressDialog.dismiss();

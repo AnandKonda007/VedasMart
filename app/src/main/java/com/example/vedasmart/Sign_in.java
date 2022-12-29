@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -19,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.vedasmart.DashBordServerResponseModels.Sign_in_Model;
+import com.example.vedasmart.DashBordServerResponseModels.Sign_in_model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -57,6 +58,12 @@ public class Sign_in extends AppCompatActivity {
     //
     ProgressDialog progressDialog;
     String fcmToken;
+    //Storing phone number in shared preferences
+    public static final String SHARED_PREFS = "shared_prefs";
+    public static final String PHONE_NUMBER = "PHONE_NUMBER";
+
+    SharedPreferences sharedpreferences;
+    String phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +75,6 @@ public class Sign_in extends AppCompatActivity {
         actions();
         Controller.getInstance().fillcontext(getApplicationContext());
         getToken();
-
 
     }
 
@@ -100,6 +106,9 @@ public class Sign_in extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        if (phone != null) {
+            startActivity(new Intent(Sign_in.this, DashBoard.class));
+        }
         EventBus.getDefault().register(Sign_in.this);
     }
 
@@ -120,7 +129,7 @@ public class Sign_in extends AppCompatActivity {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
             Gson gson = new Gson();
-            Sign_in_Model sign_in_model = gson.fromJson(messageEvent.body, Sign_in_Model.class);
+            Sign_in_model sign_in_model = gson.fromJson(messageEvent.body, Sign_in_model.class);
             Log.e("Sigin_in_response", "call" + sign_in_model.getResponse());
             if (sign_in_model.getResponse() == 3) {
                 ///token
@@ -174,6 +183,9 @@ public class Sign_in extends AppCompatActivity {
         skip = findViewById(R.id.skip);
         sign_in_sign_up = findViewById(R.id.sign_in);
 
+        sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        phone = sharedpreferences.getString(PHONE_NUMBER, null);
+
         //skip the login Activity and goes to dashBoard directly
 
         skip.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +235,6 @@ public class Sign_in extends AppCompatActivity {
         String device_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
         Log.e("Android", "Device_id : " + device_id);
 
-
         JsonObject CheckUserObj = new JsonObject();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -250,6 +261,11 @@ public class Sign_in extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    //below two lines will put values for email and password in shared prefrences.
+                    editor.putString(PHONE_NUMBER, phonenumber.getText().toString());
+                    editor.apply();
+
                     //if the code is correct and the task is succesful we are sending our user to new activity.
                     startActivity(new Intent(Sign_in.this, DashBoard.class));
                     //finish();

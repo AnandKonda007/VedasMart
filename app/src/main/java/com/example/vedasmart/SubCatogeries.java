@@ -1,5 +1,6 @@
 package com.example.vedasmart;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,7 +59,9 @@ public class SubCatogeries extends AppCompatActivity implements Sub_category2_In
         Controller.getInstance().fillcontext(getApplicationContext());
 
         getTokenFromSharedPreference();
+
         String CategoryID = getIntent().getExtras().getString("categoryID");
+
         if (CategoryID != null) {
             getSubCategotyProducts(CategoryID);
         }
@@ -200,7 +203,10 @@ public class SubCatogeries extends AppCompatActivity implements Sub_category2_In
         adapter2.notifyDataSetChanged();
     }
 
-    private void getTokenFromSharedPreference() {
+   private void getTokenFromSharedPreference() {
+       /*sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+       phone = sharedpreferences.getString(PHONE_NUMBER, null);*/
+
         SharedPreferences sharedPref = getSharedPreferences("tokenPrefs", MODE_PRIVATE);
         token = sharedPref.getString("token", null);
     }

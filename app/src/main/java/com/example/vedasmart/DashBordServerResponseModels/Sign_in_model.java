@@ -2,7 +2,7 @@ package com.example.vedasmart.DashBordServerResponseModels;
 
 import java.util.ArrayList;
 
-public class Sign_in_Model {
+public class Sign_in_model {
     private int response;
     private String message;
     private String jsontoken;

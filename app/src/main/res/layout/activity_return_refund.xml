@@ -28,8 +28,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/header"
-        app:menu="@menu/side_navigation_items" />
+        app:headerLayout="@layout/header_logout"
+        app:menu="@menu/side_navigation_items_login"/>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

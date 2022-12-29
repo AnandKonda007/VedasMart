@@ -9,19 +9,19 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
@@ -37,6 +37,9 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.vedasmart.Adapters.categories1Adapter;
 import com.example.vedasmart.Adapters.categories2Adapter;
 import com.example.vedasmart.Adapters.categories3Adapter;
+import com.example.vedasmart.Adapters.side_NavigationAdapter;
+import com.example.vedasmart.DashBordServerResponseModels.Sign_out_model;
+import com.example.vedasmart.InterFace.Side_navigation_interface;
 import com.example.vedasmart.InterFace.Sub_category1_Interface;
 import com.example.vedasmart.DashBordServerResponseModels.CategoryInfo;
 import com.example.vedasmart.DashBordServerResponseModels.DailyDeals;
@@ -45,6 +48,7 @@ import com.example.vedasmart.DashBordServerResponseModels.advertisements;
 import com.example.vedasmart.DashBordServerResponseModels.banners;
 import com.example.vedasmart.SideNavigationActivities.Faq;
 import com.example.vedasmart.SideNavigationActivities.Privacy_policy;
+import com.example.vedasmart.SideNavigationActivities.Ratings;
 import com.example.vedasmart.SideNavigationActivities.Return_refund;
 import com.example.vedasmart.SideNavigationActivities.Terms_and_conditions;
 import com.google.android.material.navigation.NavigationView;
@@ -62,7 +66,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
-public class DashBoard extends AppCompatActivity implements Sub_category1_Interface {
+public class DashBoard extends AppCompatActivity implements Sub_category1_Interface, Side_navigation_interface {
+    Context context;
     //Request code for Location
     private static final int Loc_REQ_CODE = 1025;
 
@@ -100,6 +105,16 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
     String token;
 
     NavigationView navigationView;
+    //Storing phone number in shared preferences
+    public static final String SHARED_PREFS = "shared_prefs";
+    public static final String PHONE_NUMBER = "PHONE_NUMBER";
+    SharedPreferences sharedpreferences;
+    String phone;
+
+    side_NavigationAdapter navigationAdapter;
+    ArrayList<String> sidemenu_items = new ArrayList<>();
+    RecyclerView side_menu_recyclerview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,8 +132,37 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
         setAdapter();
         //setAdapter2();
         //setAdapter3();
+        navigationSidemenu();
     }
 
+    private void navigationSidemenu() {
+        if (phone == null) {
+            sidemenu_items.add("Home");
+            sidemenu_items.add("Terms and conditions");
+            sidemenu_items.add("Privacy Policy");
+            sidemenu_items.add("Refunds and Returns");
+            sidemenu_items.add("FAQ's");
+            sidemenu_items.add("Ratings");
+            sidemenu_items.add("Login");
+        } else {
+            sidemenu_items.add("Home");
+            sidemenu_items.add("My orders");
+            sidemenu_items.add("My WishList");
+            sidemenu_items.add("Addresses");
+            sidemenu_items.add("Terms and conditions");
+            sidemenu_items.add("Privacy Policy");
+            sidemenu_items.add("Refunds and Returns");
+            sidemenu_items.add("FAQ's");
+            sidemenu_items.add("Ratings");
+            sidemenu_items.add("Sign out");
+
+        }
+        side_menu_recyclerview = findViewById(R.id.side_navigation_recyclerview);
+        side_menu_recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        navigationAdapter = new side_NavigationAdapter(DashBoard.this, this, sidemenu_items);
+        side_menu_recyclerview.setAdapter(navigationAdapter);
+
+    }
 
     private void searchButtonActions() {
         search = findViewById(R.id.search_btn);
@@ -276,43 +320,23 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
         sidemenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 drawerLayout.openDrawer(GravityCompat.START);
             }
 
         });
+
         navigationView = findViewById(R.id.sidebar);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.home) {
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                } else if (id == R.id.terms_and_conditions) {
-                    progressDialog.show();
-                    startActivity(new Intent(DashBoard.this, Terms_and_conditions.class));
-                    progressDialog.dismiss();
+        sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        phone = sharedpreferences.getString(PHONE_NUMBER, null);
+        View header = navigationView.getHeaderView(0);
+        TextView textView = header.findViewById(R.id.side_menu_logout);
+        if (phone == null) {
+            textView.setText("Login/Sign up");
 
-                } else if (id == R.id.privacy_policy) {
-                    progressDialog.show();
-                    startActivity(new Intent(DashBoard.this, Privacy_policy.class));
-                    progressDialog.dismiss();
-
-                } else if (id == R.id.refund_returns) {
-                    progressDialog.show();
-                    startActivity(new Intent(DashBoard.this, Return_refund.class));
-                    progressDialog.dismiss();
-
-                } else if (id == R.id.faq) {
-                    progressDialog.show();
-                    startActivity(new Intent(DashBoard.this, Faq.class));
-                    progressDialog.dismiss();
-
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
-
+        } else {
+            textView.setText(phone);
+        }
     }
 
 
@@ -332,7 +356,6 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
         recyclerView = findViewById(R.id.categories1);
         recyclerView2 = findViewById(R.id.categories2);
         recyclerView3 = findViewById(R.id.categories3);
-
         imageSlider = findViewById(R.id.imageslider);
         imageView = findViewById(R.id.banner1);
         imageView2 = findViewById(R.id.banner2);
@@ -450,8 +473,24 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
 
 
             }
+        } else if (messageEvent.body != null && messageEvent.msg.equals("LogoutApi")) {
+            try {
+                JSONObject jObj = new JSONObject(messageEvent.body);
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+            }
+            Gson gson = new Gson();
+            Sign_out_model sign_out_model = gson.fromJson(messageEvent.body, Sign_out_model.class);
+            if (sign_out_model.getResponse() == 3) {
+
+                Log.e("signout", "sign out");
+                startActivity(new Intent(getApplicationContext(), Sign_in.class));
+                Toast.makeText(getApplicationContext(), sign_out_model.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
+
 
     private void getProducts() {
 
@@ -469,6 +508,23 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
         }
         Controller.getInstance().ApiCallBackForPostMethods(this, "categories/subcategoryfetch", token, CheckUserObj, "DashBoardApi");
 
+
+    }
+
+    private void logoutApiPramas() {
+        JsonObject CheckUserObj = new JsonObject();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("PhoneNumber", phone);
+            jsonObject.put("deviceType", "Mobile");
+
+            JsonParser jsonParser = new JsonParser();
+            CheckUserObj = (JsonObject) jsonParser.parse(jsonObject.toString());
+            Log.e("checkBuyProject:", " " + CheckUserObj.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Controller.getInstance().ApiCallBackForPostMethods(DashBoard.this, "customer/signout", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkzODEyMDgxMTIiLCJpYXQiOjE2NjkzNjYyMjh9.RUZj9BaSV9Hg8UPKr65nA4vYz84AJQJNj5L_ysaLJDA", CheckUserObj, "LogoutApi");
 
     }
 
@@ -494,6 +550,65 @@ public class DashBoard extends AppCompatActivity implements Sub_category1_Interf
         } else {
             finishAffinity();
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void side_Navigation_On_ItemClick(int position) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        if (phone == null) {
+            if (position == 0) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else if (position == 1) {
+                startActivity(new Intent(DashBoard.this, Terms_and_conditions.class));
+            } else if (position == 2) {
+                startActivity(new Intent(DashBoard.this, Privacy_policy.class));
+            } else if (position == 3) {
+                startActivity(new Intent(DashBoard.this, Return_refund.class));
+            } else if (position == 4) {
+                startActivity(new Intent(DashBoard.this, Faq.class));
+            } else if (position == 5) {
+                startActivity(new Intent(DashBoard.this, Ratings.class));
+            } else if (position == 6) {
+                startActivity(new Intent(DashBoard.this, Sign_in.class));
+                finishAffinity();
+            }
+        } else {
+            if (position == 0) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else if (position == 4) {
+                startActivity(new Intent(DashBoard.this, Terms_and_conditions.class));
+            } else if (position == 5) {
+                startActivity(new Intent(DashBoard.this, Privacy_policy.class));
+            } else if (position == 6) {
+                startActivity(new Intent(DashBoard.this, Return_refund.class));
+            } else if (position == 7) {
+                startActivity(new Intent(DashBoard.this, Faq.class));
+            } else if (position == 8) {
+                startActivity(new Intent(DashBoard.this, Ratings.class));
+            } else if (position == 9) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DashBoard.this);
+                builder.setTitle("Logout");
+                builder.setMessage("Are you sure,do you want to logout from this device?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+
+                    logoutApiPramas();
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                });
+
+                builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    dialog.cancel();
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+
+            }
+
+
         }
     }
 }

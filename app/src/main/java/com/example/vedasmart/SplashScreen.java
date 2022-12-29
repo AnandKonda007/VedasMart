@@ -11,6 +11,58 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SplashScreen extends AppCompatActivity {
 
     Handler handler = new Handler();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_screen);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashScreen.this,Sign_in.class));
+                finish();
+            }
+        },1000);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+public class SplashScreen extends AppCompatActivity {
+
+    Handler handler = new Handler();
     private FirebaseAuth auth;
 
     @Override
@@ -31,4 +83,4 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, 3000);
     }
-}
+}*/

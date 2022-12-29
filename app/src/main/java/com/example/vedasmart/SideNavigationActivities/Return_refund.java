@@ -58,7 +58,7 @@ public class Return_refund extends AppCompatActivity {
                     progressDialog.dismiss();
 
                 }
-                else if (id == R.id.privacy_policy) {
+                else if (id == R.id. privacy_policy) {
                     progressDialog.show();
                     startActivity(new Intent(Return_refund.this, Privacy_policy.class));
                     progressDialog.dismiss();
